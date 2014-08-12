@@ -168,7 +168,7 @@ class ValidaCPFCNPJ
 	/**
 	 * Valida
 	 * 
-	 * Valida o CPF ou CNPJ
+	 * Valida o CPF ou CNPJ automaticamente
 	 * 
 	 * @access public
 	 * @return bool      True para válido, false para inválido
