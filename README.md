@@ -5,7 +5,7 @@ Classe para validação de CPF e CNPJ em PHP.
 
 Exemplo para formatação de CPF ou CNPJ
 
-```
+```php
 <?php
 // Inclui a classe
 include('class/class-valida-cpf-cnpj.php');
@@ -31,7 +31,7 @@ valor formatado.
 
 Exemplo para apenas validação de CPF/CNPJ
 
-```
+```php
 <?php
 // Cria um objeto sobre a classe
 $cpf_cnpj = new ValidaCPFCNPJ('675.401.298-67');
