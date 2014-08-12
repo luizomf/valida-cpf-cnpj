@@ -1,11 +1,22 @@
 <?php
 /**
+ * ValidaCPFCNPJ valida e formata CPF e CNPJ
  *
+ * Exemplo de uso:
+ * $cpf_cnpj  = new ValidaCPFCNPJ('71569042000196');
+ * $formatado = $cpf_cnpj->formata(); // 71.569.042/0001-96
+ * $valida    = $cpf_cnpj->valida(); // True -> Válido
+ *
+ * @package  valida-cpf-cnpj
+ * @author   Luiz Otávio Miranda <contato@tutsup.com>
+ * @version  v1.3
+ * @access   public
+ * @see      http://www.tutsup.com/
  */
 class ValidaCPFCNPJ
 {
 	/** 
-	 * Configura o valor
+	 * Configura o valor (Construtor)
 	 * 
 	 * Remove caracteres inválidos do CPF ou CNPJ
 	 * 
@@ -24,6 +35,7 @@ class ValidaCPFCNPJ
 	 * 
 	 * Se for CPF tem 11 caracteres, CNPJ tem 14
 	 * 
+	 * @access protected
 	 * @return string CPF, CNPJ ou false
 	 */
 	protected function verifica_cpf_cnpj () {
@@ -44,11 +56,11 @@ class ValidaCPFCNPJ
     /**
      * Multiplica dígitos vezes posições
      *
-     * @param string $digitos Os digitos desejados
-     * @param int $posicoes A posição que vai iniciar a regressão
-     * @param int $soma_digitos A soma das multiplicações entre posições e dígitos
-     * @return int Os dígitos enviados concatenados com o último dígito
-     *
+	 * @access protected
+     * @param  string    $digitos      Os digitos desejados
+     * @param  int       $posicoes     A posição que vai iniciar a regressão
+     * @param  int       $soma_digitos A soma das multiplicações entre posições e dígitos
+     * @return int                     Os dígitos enviados concatenados com o último dígito
      */
     protected function calc_digitos_posicoes( $digitos, $posicoes = 10, $soma_digitos = 0 ) {
         // Faz a soma dos dígitos com a posição
@@ -97,10 +109,10 @@ class ValidaCPFCNPJ
     /**
      * Valida CPF
      *
-     * @author Luiz Otávio Miranda <contato@tutsup.com>
-     * @param string $cpf O CPF com ou sem pontos e traço
-     * @return bool True para CPF correto - False para CPF incorreto
-     *
+     * @author                Luiz Otávio Miranda <contato@tutsup.com>
+	 * @access protected
+     * @param  string    $cpf O CPF com ou sem pontos e traço
+     * @return bool           True para CPF correto - False para CPF incorreto
      */
     protected function valida_cpf() {
         // Captura os 9 primeiros dígitos do CPF
@@ -126,10 +138,10 @@ class ValidaCPFCNPJ
 	/**
 	 * Valida CNPJ
 	 *
-	 * @author Luiz Otávio Miranda <contato@tutsup.com>
-	 * @param string $cnpj
-	 * @return bool true para CNPJ correto
-	 *
+	 * @author                  Luiz Otávio Miranda <contato@tutsup.com>
+	 * @access protected
+	 * @param  string     $cnpj
+	 * @return bool             true para CNPJ correto
 	 */
 	protected function valida_cnpj () {
 		// O valor original
@@ -158,7 +170,8 @@ class ValidaCPFCNPJ
 	 * 
 	 * Valida o CPF ou CNPJ
 	 * 
-	 * @return bool True para válido, false para inválido
+	 * @access public
+	 * @return bool      True para válido, false para inválido
 	 */
 	public function valida () {
 		// Valida CPF
@@ -179,8 +192,9 @@ class ValidaCPFCNPJ
 	
 	/**
 	 * Formata CPF ou CNPJ
-	 * 
-	 * @return string CPF ou CNPJ formatado
+	 *
+	 * @access public
+	 * @return string  CPF ou CNPJ formatado
 	 */
 	public function formata() {
 		// O valor formatado
