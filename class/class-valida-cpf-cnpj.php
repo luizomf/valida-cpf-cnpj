@@ -15,26 +15,26 @@
  */
 class ValidaCPFCNPJ
 {
-	/** 
+	/**
 	 * Configura o valor (Construtor)
-	 * 
+	 *
 	 * Remove caracteres inválidos do CPF ou CNPJ
-	 * 
+	 *
 	 * @param string $valor - O CPF ou CNPJ
 	 */
 	function __construct ( $valor = null ) {
 		// Deixa apenas números no valor
 		$this->valor = preg_replace( '/[^0-9]/', '', $valor );
-		
+
 		// Garante que o valor é uma string
 		$this->valor = (string)$this->valor;
 	}
 
 	/**
 	 * Verifica se é CPF ou CNPJ
-	 * 
+	 *
 	 * Se for CPF tem 11 caracteres, CNPJ tem 14
-	 * 
+	 *
 	 * @access protected
 	 * @return string CPF, CNPJ ou false
 	 */
@@ -42,11 +42,11 @@ class ValidaCPFCNPJ
 		// Verifica CPF
 		if ( strlen( $this->valor ) === 11 ) {
 			return 'CPF';
-		} 
+		}
 		// Verifica CNPJ
 		elseif ( strlen( $this->valor ) === 14 ) {
 			return 'CNPJ';
-		} 
+		}
 		// Não retorna nada
 		else {
 			return false;
@@ -167,9 +167,9 @@ class ValidaCPFCNPJ
 
 	/**
 	 * Valida
-	 * 
+	 *
 	 * Valida o CPF ou CNPJ
-	 * 
+	 *
 	 * @access public
 	 * @return bool      True para válido, false para inválido
 	 */
@@ -177,13 +177,13 @@ class ValidaCPFCNPJ
 		// Valida CPF
 		if ( $this->verifica_cpf_cnpj() === 'CPF' ) {
 			// Retorna true para cpf válido
-			return $this->valida_cpf();
-		} 
+			return $this->valida_cpf() && $this->verifica_sequencia(11);
+		}
 		// Valida CNPJ
 		elseif ( $this->verifica_cpf_cnpj() === 'CNPJ' ) {
 			// Retorna true para CNPJ válido
-			return $this->valida_cnpj();
-		} 
+			return $this->valida_cnpj() && $this->verifica_sequencia(14);
+		}
 		// Não retorna nada
 		else {
 			return false;
@@ -210,7 +210,7 @@ class ValidaCPFCNPJ
 				$formatado .= substr( $this->valor, 6, 3 ) . '-';
 				$formatado .= substr( $this->valor, 9, 2 ) . '';
 			}
-		} 
+		}
 		// Valida CNPJ
 		elseif ( $this->verifica_cpf_cnpj() === 'CNPJ' ) {
 			// Verifica se o CPF é válido
@@ -222,10 +222,27 @@ class ValidaCPFCNPJ
 				$formatado .= substr( $this->valor,  8,  4 ) . '-';
 				$formatado .= substr( $this->valor, 12, 14 ) . '';
 			}
-		} 
+		}
 
-		// Retorna o valor 
+		// Retorna o valor
 		return $formatado;
+	}
+
+	/**
+	 * Método para verifica sequencia de números
+	 * @param  integer $multiplos Quantos números devem ser verificados
+	 * @return boolean
+	 */
+	public function verifica_sequencia($multiplos)
+	{
+		// cpf
+		for($i=0; $i<10; $i++) {
+			if (str_repeat($i, $multiplos) == $this->valor) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
 ?>
